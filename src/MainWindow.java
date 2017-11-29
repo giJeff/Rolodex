@@ -1,6 +1,8 @@
 
 //Imports are listed in full to show what's being used
 //could just import javafx.*
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -25,6 +27,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application
@@ -34,6 +38,11 @@ public class MainWindow extends Application
 	private final ObservableList<Person> tableData = FXCollections.observableArrayList();
 	Rolodexy rolodexy = new Rolodexy(tableData);
 
+	String musicFile = "8-bit-Arcade4.mp3";    
+
+	Media sound = new Media(new File(musicFile).toURI().toString());
+	MediaPlayer mediaPlayer = new MediaPlayer(sound);
+	
 	// JavaFX application still use the main method.
 	// It should only ever contain the call to the launch method
 	public static void main(String[] args)
@@ -59,6 +68,8 @@ public class MainWindow extends Application
 		// componentLayout.setRight(makeRight()); //didn't use the right side yet
 
 		Scene mainScene = new Scene(mainLayout, 1000, 1000);
+		
+		mediaPlayer.play();
 
 		// Add the Scene to the Stage
 		primaryStage.setScene(mainScene);
@@ -350,8 +361,21 @@ public class MainWindow extends Application
 			if (tableData.size() >= 1 && !check)
 			{
 				Person index = table.getSelectionModel().getSelectedItem();
-				System.out.println(index.toString());
+				//System.out.println(index.toString());
 				tableData.remove(index);
+				long sleepTime = 999;
+				try
+				{
+					Thread.sleep(sleepTime);
+					Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+					dialog.setHeaderText(null);
+					dialog.setContentText("You deleted: " + index.toString());
+					dialog.showAndWait();
+				} catch (InterruptedException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		});
