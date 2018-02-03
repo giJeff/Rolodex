@@ -68,7 +68,8 @@ public class MainWindow extends Application
 		// componentLayout.setRight(makeRight()); //didn't use the right side yet
 
 		Scene mainScene = new Scene(mainLayout, 1000, 1000);
-		
+		double value = 0.3;
+		mediaPlayer.setVolume(value);
 		mediaPlayer.play();
 
 		// Add the Scene to the Stage
